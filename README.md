@@ -1,4 +1,5 @@
 # 프로젝트로 배우는 리액트
+// https://github.com/kossiecoder/react-redux-basic
 
 ## Install JSON Server
 - `npm install json-server`
