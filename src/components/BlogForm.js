@@ -1,7 +1,7 @@
 import {useState} from "react";
 import axios from "axios";
 
-const BlogList = () => {
+const BlogForm = () => {
   const [inputText, setInputText] = useState({
     title: '',
     content: ''
@@ -21,7 +21,6 @@ const BlogList = () => {
       title,
       content
     })
-    console.log(title, content)
   }
 
   return (
@@ -49,4 +48,4 @@ const BlogList = () => {
   )
 }
 
-export default BlogList;
+export default BlogForm;

@@ -1,6 +1,6 @@
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
-const LinkPage = () => {
+const NavBar = () => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -8,7 +8,9 @@ const LinkPage = () => {
         <Link className="navbar-brand" to="/">Home</Link>
           <ul className="navbar-nav mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/blogs">Blogs</Link>
+              <NavLink className={({ isActive }) => isActive ? "selected nav-link" : "not nav-link"}
+                       aria-current="page"
+                       to="/blogs">Blogs</NavLink>
             </li>
           </ul>
       </div>
@@ -16,4 +18,4 @@ const LinkPage = () => {
   )
 }
 
-export default LinkPage
+export default NavBar
