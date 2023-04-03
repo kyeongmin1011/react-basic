@@ -1,8 +1,8 @@
 {
   "posts": [
     {
-      "title": "11",
-      "content": "22",
+      "title": "제목",
+      "content": "내용입니다.",
       "id": 1
     }
   ]
