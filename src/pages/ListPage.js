@@ -10,7 +10,6 @@ const ListPage = () => {
       .then(res => setPosts(res.data))
   }
 
-
   useEffect(() => {
     getData()
   }, [])
@@ -20,7 +19,7 @@ const ListPage = () => {
       <h1>Blogs</h1>
       {posts.map(post => {
         return (
-          <Card post={post} key={post.id}>
+          <Card title={post.title} key={post.id}>
             <button>button</button>
           </Card>
         )

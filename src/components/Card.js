@@ -1,10 +1,12 @@
-const Card = ({post, children}) => {
+import PropTypes from "prop-types";
 
+const Card = ({title, children}) => {
+  console.log(title, 'ssss')
   return (
     <div className="card mb-3">
       <div className="card-body">
         <div className="d-flex justify-content-between">
-          <div>{post.title}</div>
+          <div>{title}</div>
           {children && <div>{children} </div>}
         </div>
       </div>
@@ -12,4 +14,12 @@ const Card = ({post, children}) => {
   )
 }
 
+Card.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.element,
+}
+
+Card.defaultProps = {
+  children : null
+}
 export default Card
