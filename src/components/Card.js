@@ -1,13 +1,14 @@
-const Card = ({post}) => {
-  const {title} = post
+const Card = ({post, children}) => {
 
-  console.log('post', post)
   return (
-      <div className="card mb-3" >
-        <div className="card-body">
-          {title}
+    <div className="card mb-3">
+      <div className="card-body">
+        <div className="d-flex justify-content-between">
+          <div>{post.title}</div>
+          {children && <div>{children} </div>}
         </div>
       </div>
+    </div>
   )
 }
 

@@ -16,11 +16,13 @@ const ListPage = () => {
   }, [])
 
   return (
-    <div className="ListPage">
+    <div className="ListPage container">
       <h1>Blogs</h1>
       {posts.map(post => {
         return (
-          <Card post={post} key={post.id}/>
+          <Card post={post} key={post.id}>
+            <button>button</button>
+          </Card>
         )
       })}
     </div>
