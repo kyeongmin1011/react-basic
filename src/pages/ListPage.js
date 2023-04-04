@@ -43,7 +43,9 @@ const ListPage = () => {
       )
     }
 
-    return posts.map(post => {
+    return posts.filter(post => {
+      return post.publish
+    }).map(post => {
       return (
         <Card title={post.title}
               key={post.id}
