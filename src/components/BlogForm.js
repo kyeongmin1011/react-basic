@@ -1,7 +1,9 @@
 import {useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const BlogForm = () => {
+  const navigate = useNavigate()
   const [inputText, setInputText] = useState({
     title: '',
     content: ''
@@ -21,6 +23,7 @@ const BlogForm = () => {
       title,
       content
     })
+    navigate('/blogs')
   }
 
   return (

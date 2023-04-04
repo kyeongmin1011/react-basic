@@ -31,7 +31,7 @@ const ListPage = () => {
           <Link to="/blogs/create" className="btn btn-success">Create New</Link>
         </div>
       </div>
-      {posts.map(post => {
+      {posts.length > 0 ? posts.map(post => {
         return (
           <Card title={post.title}
                 key={post.id}
@@ -43,7 +43,7 @@ const ListPage = () => {
             </div>
           </Card>
         )
-      })}
+      }) : 'no blog posts found'}
     </div>
   )
 }
