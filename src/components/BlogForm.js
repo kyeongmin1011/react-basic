@@ -3,14 +3,19 @@ import {useNavigate, useParams} from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-const BlogForm = ({ editing }) => {
+const BlogForm = ({editing}) => {
   const navigate = useNavigate()
   const [inputText, setInputText] = useState({
     title: '',
     content: ''
   })
+  const [originalData, setOriginalData] = useState({
+    originalTitle: '',
+    originalContent: ''
+  })
 
   const {title, content} = inputText
+  const {originalTitle, originalContent} = originalData
 
   const handleInput = (e) => {
     setInputText({
@@ -21,21 +26,40 @@ const BlogForm = ({ editing }) => {
 
   const {id} = useParams();
   useEffect(() => {
-    axios.get(`http://localhost:3001/posts/${id}`)
-      .then(res => {
-        setInputText({
-          title: res.data.title,
-          content: res.data.content
+    if (editing) {
+      axios.get(`http://localhost:3001/posts/${id}`)
+        .then((res) => {
+          setInputText({
+            title: res.data.title,
+            content: res.data.content
+          })
+          setOriginalData({
+            originalTitle: res.data.title,
+            originalContent: res.data.content
+          })
         })
-      })
-  })
+    }
+  }, [id, editing])
+
+  const isEdited = () => {
+    return title !== originalTitle || content !== originalContent
+  }
 
   const onSubmit = () => {
-    axios.post('http://localhost:3001/posts', {
-      title,
-      content,
-      createdAt: new Date()
-    }).then(() => navigate('/blogs'))
+    if (editing) { // 수정하기
+      axios.put(`http://localhost:3001/posts/${id}`, {
+        title,
+        content
+      }).then(() => navigate(`/blogs/${id}`))
+
+    } else { // 생성하기
+      axios.post('http://localhost:3001/posts', {
+        title,
+        content,
+        createdAt: new Date()
+      }).then(() => navigate('/blogs'))
+    }
+
   }
 
   return (
@@ -59,7 +83,9 @@ const BlogForm = ({ editing }) => {
                   onChange={handleInput}/>
       </div>
 
-      <button className="btn btn-primary" onClick={onSubmit}>
+      <button className="btn btn-primary"
+              disabled={editing && !isEdited()}
+              onClick={onSubmit}>
         {editing ? 'Edit' : 'Post'}
       </button>
     </div>
