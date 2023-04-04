@@ -14,7 +14,6 @@ const ShowPage = () => {
       .then((res) => {
         setPost(res.data)
         setLoading(false)
-        console.log(res)
       })
   }
 
@@ -22,13 +21,19 @@ const ShowPage = () => {
     getPost(id)
   }, [])
 
+  const printDate = (timestamp) => {
+    return new Date(timestamp).toLocaleString()
+  }
 
   if (loading) {
     return <LoadingSpinner />
   }
   return (
-    <div className="ShowPage">
-      <h2>show page</h2>
+    <div className="ShowPage container mt-3">
+      <h1>{post.title}</h1>
+      <small className="text-muted">{printDate(post.createdAt)}</small>
+      <hr/>
+      <p>{post.content}</p>
     </div>
   )
 }

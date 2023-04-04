@@ -1,19 +1,16 @@
 {
   "posts": [
     {
-      "title": "11",
-      "content": "11123123123",
+      "title": "점심시간 ",
+      "content": "배고파~",
+      "createdAt": 1680575440443,
       "id": 1
     },
     {
-      "title": "제목입니다",
-      "content": "내용이ㅇ ㅑ~",
-      "id": 2
-    },
-    {
-      "title": "타이틀",
+      "title": "제목",
       "content": "내용",
-      "id": 3
+      "createdAt": 1680575462615,
+      "id": 2
     }
   ]
 }

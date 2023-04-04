@@ -47,7 +47,7 @@ const ListPage = () => {
       return (
         <Card title={post.title}
               key={post.id}
-              onClick={() => navigate('/blogs/edit')}>
+              onClick={() => navigate(`/blogs/${post.id}`)}>
           <div>
             <button className="btn btn-danger btn-sm"
                     onClick={(e) => onDelete(e, post.id)}>Delete

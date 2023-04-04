@@ -21,7 +21,8 @@ const BlogForm = () => {
   const onSubmit = () => {
     axios.post('http://localhost:3001/posts', {
       title,
-      content
+      content,
+      createdAt: new Date()
     }).then(() => navigate('/blogs'))
   }
 
