@@ -59,7 +59,14 @@ const BlogForm = ({editing}) => {
         createdAt: new Date()
       }).then(() => navigate('/blogs'))
     }
+  }
 
+  const goBack = () => {
+    if (editing) {
+      navigate(`/blogs/${id}`)
+    } else {
+      navigate('/blogs')
+    }
   }
 
   return (
@@ -87,6 +94,11 @@ const BlogForm = ({editing}) => {
               disabled={editing && !isEdited()}
               onClick={onSubmit}>
         {editing ? 'Edit' : 'Post'}
+      </button>
+
+      <button className="btn btn-danger ms-2"
+              onClick={goBack}>
+        Cancel
       </button>
     </div>
   )
