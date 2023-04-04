@@ -19,17 +19,26 @@ const ListPage = () => {
 
   return (
     <div className="ListPage container mt-3">
-     <div className="d-flex justify-content-between">
-       <h1>Blogs</h1>
-       <div>
-         <Link to="/blogs/create" className="btn btn-success" >Create New</Link>
-       </div>
-     </div>
+      <div className="d-flex justify-content-between">
+        <h1>Blogs</h1>
+        <div>
+          <Link to="/blogs/create" className="btn btn-success">Create New</Link>
+        </div>
+      </div>
       {posts.map(post => {
         return (
           <Card title={post.title}
                 key={post.id}
-                onClick={() => navigate('/blogs/edit')} />
+                onClick={() => navigate('/blogs/edit')}>
+            <div>
+              <button className="btn btn-danger btn-sm"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        console.log('삭제버튼')
+                      }}>Delete
+              </button>
+            </div>
+          </Card>
         )
       })}
     </div>
