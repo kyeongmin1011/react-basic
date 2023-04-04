@@ -63,7 +63,7 @@ const ListPage = () => {
       <div className="d-flex justify-content-between">
         <h1>Blogs</h1>
         <div>
-          <Link to="/blogs/create" className="btn btn-success">Create New</Link>
+          <Link to="/blogs/create" className="btn btn-success">Create</Link>
         </div>
       </div>
       {renderBlogList()}

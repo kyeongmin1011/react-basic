@@ -1,8 +1,9 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import PropTypes from "prop-types";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 
-const BlogForm = () => {
+const BlogForm = ({ editing }) => {
   const navigate = useNavigate()
   const [inputText, setInputText] = useState({
     title: '',
@@ -18,6 +19,17 @@ const BlogForm = () => {
     })
   }
 
+  const {id} = useParams();
+  useEffect(() => {
+    axios.get(`http://localhost:3001/posts/${id}`)
+      .then(res => {
+        setInputText({
+          title: res.data.title,
+          content: res.data.content
+        })
+      })
+  })
+
   const onSubmit = () => {
     axios.post('http://localhost:3001/posts', {
       title,
@@ -29,6 +41,7 @@ const BlogForm = () => {
   return (
     <div className="BlogList container mt-3">
       <div className="mb-3">
+        <h1><b>{editing ? 'Edit' : 'Create'} a blog post</b></h1>
         <label className="form-label">Title</label>
         <input type="text"
                className="form-control"
@@ -40,15 +53,25 @@ const BlogForm = () => {
       <div className="mb-3">
         <label className="form-label">Content</label>
         <textarea className="form-control"
-                  rows="20"
+                  rows="10"
                   value={content}
                   name="content"
                   onChange={handleInput}/>
       </div>
 
-      <button className="btn btn-primary" onClick={onSubmit}>Save</button>
+      <button className="btn btn-primary" onClick={onSubmit}>
+        {editing ? 'Edit' : 'Post'}
+      </button>
     </div>
   )
+}
+
+BlogForm.propTypes = {
+  editing: PropTypes.bool
+}
+
+BlogForm.defaultProps = {
+  editing: false
 }
 
 export default BlogForm;
