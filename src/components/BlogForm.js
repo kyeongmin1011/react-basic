@@ -13,7 +13,6 @@ const BlogForm = ({editing}) => {
     originalTitle: '',
     originalContent: ''
   })
-
   const {title, content} = inputText
   const {originalTitle, originalContent} = originalData
 
@@ -23,6 +22,11 @@ const BlogForm = ({editing}) => {
       [e.target.name]: e.target.value
     })
   }
+
+  const [publish, setPublish] = useState(false)
+  const [originPublish, setOriginPublish] = useState(false)
+  const handlePublish = (e) => setPublish(e.target.checked)
+
 
   const {id} = useParams();
   useEffect(() => {
@@ -37,25 +41,29 @@ const BlogForm = ({editing}) => {
             originalTitle: res.data.title,
             originalContent: res.data.content
           })
+          setPublish(res.data.publish)
+          setOriginPublish(res.data.publish)
         })
     }
   }, [id, editing])
 
   const isEdited = () => {
-    return title !== originalTitle || content !== originalContent
+    return title !== originalTitle || content !== originalContent || publish !== originPublish
   }
 
   const onSubmit = () => {
     if (editing) { // 수정하기
       axios.put(`http://localhost:3001/posts/${id}`, {
         title,
-        content
+        content,
+        publish
       }).then(() => navigate(`/blogs/${id}`))
 
     } else { // 생성하기
       axios.post('http://localhost:3001/posts', {
         title,
         content,
+        publish,
         createdAt: new Date()
       }).then(() => navigate('/blogs'))
     }
@@ -88,6 +96,16 @@ const BlogForm = ({editing}) => {
                   value={content}
                   name="content"
                   onChange={handleInput}/>
+      </div>
+
+      <div className="form-check">
+        <input type="checkbox"
+               className="form-check-input"
+               checked={publish}
+               onChange={handlePublish}
+
+        />
+        <label className="form" >Publish</label>
       </div>
 
       <button className="btn btn-primary"

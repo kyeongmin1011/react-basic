@@ -3,6 +3,7 @@
     {
       "title": "수정테스트",
       "content": "수수수정",
+      "publish": true,
       "id": 1
     },
     {
@@ -21,6 +22,12 @@
       "content": "312313123",
       "createdAt": "2023-04-04T05:29:12.802Z",
       "id": 4
+    },
+    {
+      "title": "체크박스",
+      "content": "체크박스욘~",
+      "publish": true,
+      "id": 5
     }
   ]
 }
