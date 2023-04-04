@@ -3,24 +3,59 @@ import {useEffect, useState} from "react";
 import Card from "../components/Card";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import LoadingSpinner from "../components/LoadingSpinner";
+
 
 const ListPage = () => {
   const [posts, setPosts] = useState([])
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
   const getData = () => {
     axios.get('http://localhost:3001/posts')
-      .then(res => setPosts(res.data))
+      .then(res => {
+        setPosts(res.data)
+        setLoading(false)
+      })
   }
 
   useEffect(() => {
     getData()
+
   }, [])
 
   const onDelete = (e, id) => {
     e.stopPropagation()
     axios.delete(`http://localhost:3001/posts/${id}`)
       .then(() => setPosts(res => res.filter(item => item.id !== id)))
+  }
+
+  const renderBlogList = () => {
+    if (loading) {
+      return (
+        <LoadingSpinner />
+      )
+    }
+
+    if (posts.length === 0) {
+      return (
+        <div>'no blog posts found'</div>
+      )
+    }
+
+    return posts.map(post => {
+      return (
+        <Card title={post.title}
+              key={post.id}
+              onClick={() => navigate('/blogs/edit')}>
+          <div>
+            <button className="btn btn-danger btn-sm"
+                    onClick={(e) => onDelete(e, post.id)}>Delete
+            </button>
+          </div>
+        </Card>
+      )
+    })
   }
 
   return (
@@ -31,19 +66,7 @@ const ListPage = () => {
           <Link to="/blogs/create" className="btn btn-success">Create New</Link>
         </div>
       </div>
-      {posts.length > 0 ? posts.map(post => {
-        return (
-          <Card title={post.title}
-                key={post.id}
-                onClick={() => navigate('/blogs/edit')}>
-            <div>
-              <button className="btn btn-danger btn-sm"
-                      onClick={(e) => onDelete(e, post.id)}>Delete
-              </button>
-            </div>
-          </Card>
-        )
-      }) : 'no blog posts found'}
+      {renderBlogList()}
     </div>
   )
 }
