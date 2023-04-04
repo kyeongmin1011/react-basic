@@ -17,6 +17,12 @@ const ListPage = () => {
     getData()
   }, [])
 
+  const onDelete = (e, id) => {
+    e.stopPropagation()
+    axios.delete(`http://localhost:3001/posts/${id}`)
+      .then(() => setPosts(res => res.filter(item => item.id !== id)))
+  }
+
   return (
     <div className="ListPage container mt-3">
       <div className="d-flex justify-content-between">
@@ -32,10 +38,7 @@ const ListPage = () => {
                 onClick={() => navigate('/blogs/edit')}>
             <div>
               <button className="btn btn-danger btn-sm"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        console.log('삭제버튼')
-                      }}>Delete
+                      onClick={(e) => onDelete(e, post.id)}>Delete
               </button>
             </div>
           </Card>
