@@ -6,14 +6,7 @@ import HomePage from "./pages/HomePage";
 import ListPage from "./pages/ListPage";
 import CreatePage from "./pages/CreatePage";
 import EditPage from "./pages/EditPage";
-
-
-const routes = [
-  {path: '/', component: HomePage},
-  {path: '/blogs', component: ListPage},
-  {path: '/blogs/create', component: CreatePage},
-  {path: '/blogs/edit', component: EditPage},
-]
+import ShowPage from "./pages/ShowPage";
 
 function App() {
 
@@ -23,9 +16,10 @@ function App() {
         <NavBar/>
           <Routes>
             <Route path="/" element={<HomePage/>}></Route>
-            <Route path="/blogs" element={<ListPage/>}> Blogs</Route>
-            <Route path="/blogs/create" element={<CreatePage/>}> Blogs create</Route>
-            <Route path="/blogs/edit" element={<EditPage/>}> Blogs edit</Route>
+            <Route path="/blogs" element={<ListPage/>} />
+            <Route path="/blogs/:id" element={<ShowPage/>} />
+            <Route path="/blogs/create" element={<CreatePage/>} />
+            <Route path="/blogs/edit" element={<EditPage/>} />
           </Routes>
       </BrowserRouter>
     </div>
