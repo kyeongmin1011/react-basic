@@ -22,8 +22,7 @@ const BlogForm = () => {
     axios.post('http://localhost:3001/posts', {
       title,
       content
-    })
-    navigate('/blogs')
+    }).then(() => navigate('/blogs'))
   }
 
   return (
