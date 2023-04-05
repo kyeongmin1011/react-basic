@@ -10,6 +10,12 @@ const NavBar = () => {
             <li className="nav-item">
               <NavLink className={({ isActive }) => isActive ? "selected nav-link" : "not nav-link"}
                        aria-current="page"
+                       to="/admin">Admin</NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink className={({ isActive }) => isActive ? "selected nav-link" : "not nav-link"}
+                       aria-current="page"
                        to="/blogs">Blogs</NavLink>
             </li>
           </ul>

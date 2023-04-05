@@ -3,8 +3,10 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Card from "../components/Card";
+import PropTypes from "prop-types";
 
-const BlogList = () => {
+
+const BlogList = ({ isAdmin }) => {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
@@ -44,20 +46,28 @@ const BlogList = () => {
   }
 
   return posts.filter(post => {
-    return post.publish
+    return isAdmin || post.publish // 관리자는 전부다 보이게
   }).map(post => {
     return (
       <Card title={post.title}
             key={post.id}
             onClick={() => navigate(`/blogs/${post.id}`)}>
-        <div>
+        {isAdmin ? (<div>
           <button className="btn btn-danger btn-sm"
                   onClick={(e) => onDelete(e, post.id)}>Delete
           </button>
-        </div>
+        </div>) : null}
       </Card>
     )
   })
+}
+
+BlogList.propTypes = {
+  isAdmin: PropTypes.bool
+}
+
+BlogList.defaultProps = {
+  isAdmin: false
 }
 
 export default BlogList;

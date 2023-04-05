@@ -11,7 +11,7 @@ const AdminPage = () => {
           <Link to={'/blogs/create'} className="btn btn-success">글쓰기</Link>
         </div>
       </div>
-     <BlogList />
+     <BlogList isAdmin={true} />
     </div>
   )
 }
