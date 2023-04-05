@@ -10,10 +10,13 @@ import PropTypes from "prop-types";
 const BlogList = ({isAdmin}) => {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
   const navigate = useNavigate()
 
 
   const getData = (page = 1) => {
+    setCurrentPage(page)
+
     let params = {
       _page: page,
       _limit: 5,
@@ -79,7 +82,9 @@ const BlogList = ({isAdmin}) => {
   return (
     <div>
       {renderBlogList()}
-      <Pagination currentPage={2} numberOfPages={5}/>
+      <Pagination currentPage={currentPage}
+                  numberOfPages={5}
+                  onClick={getData}/>
     </div>
   )
 }
