@@ -7,26 +7,35 @@ import Pagination from "./Pagination";
 import PropTypes from "prop-types";
 
 
-const BlogList = ({ isAdmin }) => {
+const BlogList = ({isAdmin}) => {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
 
   const getData = (page = 1) => {
+    let params = {
+      _page: page,
+      _limit: 5,
+      _sort: 'id',
+      _order: 'desc'
+    }
+
+    if (!isAdmin) {
+      params = {...params, publish: true}
+    }
+
     axios.get(`http://localhost:3001/posts`, {
-      params: {
-        _page: page,
-        _limit: 5,
-        _sort: 'id',
-        _order: 'desc'
-      }
+      params: params
+    }).then(res => {
+      setPosts(res.data)
+      setLoading(false)
     })
   }
 
+
   useEffect(() => {
     getData()
-
   }, [])
 
   const onDelete = (e, id) => {
@@ -36,10 +45,9 @@ const BlogList = ({ isAdmin }) => {
   }
 
 
-
   if (loading) {
     return (
-      <LoadingSpinner />
+      <LoadingSpinner/>
     )
   }
 
@@ -71,7 +79,7 @@ const BlogList = ({ isAdmin }) => {
   return (
     <div>
       {renderBlogList()}
-      <Pagination />
+      <Pagination/>
     </div>
   )
 }
