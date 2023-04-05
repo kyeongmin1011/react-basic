@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Card from "../components/Card";
 import PropTypes from "prop-types";
+import Pagination from "./Pagination";
 
 
 const BlogList = ({ isAdmin }) => {
@@ -45,21 +46,31 @@ const BlogList = ({ isAdmin }) => {
     )
   }
 
-  return posts.filter(post => {
-    return isAdmin || post.publish // 관리자는 전부다 보이게
-  }).map(post => {
-    return (
-      <Card title={post.title}
-            key={post.id}
-            onClick={() => navigate(`/blogs/${post.id}`)}>
-        {isAdmin ? (<div>
-          <button className="btn btn-danger btn-sm"
-                  onClick={(e) => onDelete(e, post.id)}>Delete
-          </button>
-        </div>) : null}
-      </Card>
-    )
-  })
+  const renderBlogList = () => {
+    return posts.filter(post => {
+      return isAdmin || post.publish // 관리자는 전부다 보이게
+    }).map(post => {
+      return (
+        <Card title={post.title}
+              key={post.id}
+              onClick={() => navigate(`/blogs/${post.id}`)}>
+          {isAdmin ? (<div>
+            <button className="btn btn-danger btn-sm"
+                    onClick={(e) => onDelete(e, post.id)}>Delete
+            </button>
+          </div>) : null}
+        </Card>
+      )
+    })
+  }
+
+
+  return (
+    <div>
+      {renderBlogList()}
+      <Pagination />
+    </div>
+  )
 }
 
 BlogList.propTypes = {
