@@ -8,18 +8,25 @@ import PropTypes from "prop-types";
 
 
 const BlogList = ({isAdmin}) => {
+  const navigate = useNavigate()
+
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
-  const navigate = useNavigate()
+  const [numberOfPosts, setNumberOfPosts] = useState(0)
+  const [numberOfPages, setNumberOfPages] = useState(0)
 
+  const limit = 5;
+  useEffect(() => {
+    setNumberOfPages(Math.ceil(numberOfPosts / limit))
+  }, [numberOfPosts])
 
   const getData = (page = 1) => {
     setCurrentPage(page)
 
     let params = {
       _page: page,
-      _limit: 5,
+      _limit: limit,
       _sort: 'id',
       _order: 'desc'
     }
@@ -31,6 +38,7 @@ const BlogList = ({isAdmin}) => {
     axios.get(`http://localhost:3001/posts`, {
       params: params
     }).then(res => {
+      setNumberOfPosts(res.headers['x-total-count'])
       setPosts(res.data)
       setLoading(false)
     })
@@ -82,9 +90,9 @@ const BlogList = ({isAdmin}) => {
   return (
     <div>
       {renderBlogList()}
-      <Pagination currentPage={currentPage}
-                  numberOfPages={5}
-                  onClick={getData}/>
+      {numberOfPages > 1 && <Pagination currentPage={currentPage}
+                   numberOfPages={numberOfPages}
+                   onClick={getData}/>}
     </div>
   )
 }
