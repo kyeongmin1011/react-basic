@@ -7,6 +7,7 @@ import ListPage from "./pages/ListPage";
 import CreatePage from "./pages/CreatePage";
 import EditPage from "./pages/EditPage";
 import ShowPage from "./pages/ShowPage";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
 
@@ -15,7 +16,8 @@ function App() {
       <BrowserRouter>
         <NavBar/>
           <Routes>
-            <Route path="/" element={<HomePage/>}></Route>
+            <Route path="/" element={<HomePage/>} />
+            <Route path="/admin" element={<AdminPage/>} />
             <Route path="/blogs" element={<ListPage/>} />
             <Route path="/blogs/:id" element={<ShowPage/>} />
             <Route path="/blogs/create" element={<CreatePage/>} />
