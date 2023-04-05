@@ -3,8 +3,8 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Card from "../components/Card";
-import PropTypes from "prop-types";
 import Pagination from "./Pagination";
+import PropTypes from "prop-types";
 
 
 const BlogList = ({ isAdmin }) => {
@@ -13,8 +13,8 @@ const BlogList = ({ isAdmin }) => {
   const navigate = useNavigate()
 
 
-  const getData = () => {
-    axios.get('http://localhost:3001/posts')
+  const getData = (page = 1) => {
+    axios.get(`http://localhost:3001/posts?_page=${page}&_limit=5&_sort=id&_order=desc`)
       .then(res => {
         setPosts(res.data)
         setLoading(false)
